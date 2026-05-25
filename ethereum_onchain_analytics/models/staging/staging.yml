@@ -1,0 +1,55 @@
+version: 2
+
+models:
+  - name: stg_transactions
+    description: "Staging table for raw transactions data from the Ethereum blockchain."
+    columns:
+      - name: hash
+        description: "Unique identifier for the transaction."
+        data_tests:
+          - unique
+          - not_null
+      - name: block_number
+        description: "The block number in which the transaction was included."
+      - name: date
+        description: "The date at which the transaction was included in a block." 
+      - name: from_address
+        description: "The address that initiated the transaction."
+      - name: to_address
+        description: "The address that received the transaction."
+      - name: value
+        description: "The amount of Ether transferred in the transaction."
+      - name: receipt_contract_address
+        description: "The address of the contract that received the transaction."
+      - name: input
+        description: "The data payload of the transaction."
+
+  - name: stg_token_transfers
+    description: "Staging table for raw token transfer events from the Ethereum blockchain."
+    columns:
+      - name: transaction_hash
+        description: "Unique identifier for the transaction associated with the token transfer."
+        data_tests:
+            - not_null
+      - name: date
+        description: "The date at which the token transfer occurred."
+      - name: token_address
+        description: "The address of the token being transferred." 
+      - name: value
+        description: "The amount of tokens transferred in the transaction."
+
+  - name: stg_contracts
+    description: "Staging table for raw contract data from the Ethereum blockchain."
+    columns:
+      - name: address
+        description: "The address of the contract."
+        data_tests:
+            - not_null
+      - name: block_number
+        description: "The block number at which the contract was created."
+      - name: bytecode
+        description: "The bytecode of the contract."
+      - name: date
+        description: "The date at which the contract was created."
+      - name: last_modified
+        description: "The date at which the contract was last modified."

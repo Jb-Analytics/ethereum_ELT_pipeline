@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: raw_eth
+    database: eth_bronze
+    schema: raw
+    tables:
+      - name: transactions
+      - name: token_transfers
+      - name: contracts

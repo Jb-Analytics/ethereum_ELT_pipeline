@@ -1,0 +1,36 @@
+
+name: 'ethereum_onchain_analytics'
+version: '1.0.0'
+
+profile: 'ethereum_onchain_analytics'
+
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+flags:
+  fail_fast: true
+
+
+models:
+  ethereum_onchain_analytics:
+    staging:
+      +database: eth_bronze
+      +schema: raw
+      +materialized: view
+    intermediate:
+      +database: eth_silver      
+      +schema: core
+      +materialized: table
+    marts:
+      +database: eth_gold
+      +schema: analytics
+      +tags: ['analytics']

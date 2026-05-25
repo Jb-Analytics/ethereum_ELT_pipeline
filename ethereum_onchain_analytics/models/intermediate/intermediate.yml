@@ -1,0 +1,18 @@
+version: 2
+
+models:
+  - name: int_transactions_enriched
+    description: "Enriched transactions data with additional fields for analysis."
+    columns:
+      - name: transaction_hash
+        description: "Unique identifier for the transaction."
+      - name: block_number
+        description: "The block number in which the transaction was included."
+      - name: from_address
+        description: "The address that initiated the transaction."
+      - name: to_address
+        description: "The address that received the transaction."
+      - name: value
+        description: "The amount of Ether transferred in the transaction."
+      - name: timestamp
+        description: "The time at which the transaction was included in a block."
