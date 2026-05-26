@@ -2,8 +2,8 @@ version: 2
 
 sources:
   - name: raw_eth
-    database: eth_bronze
-    schema: raw
+    database: dev
+    schema: celiajb_eth_bronze
     tables:
       - name: transactions
       - name: token_transfers

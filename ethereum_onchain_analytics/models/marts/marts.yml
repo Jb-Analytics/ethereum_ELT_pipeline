@@ -1,0 +1,25 @@
+version: 2
+
+models:
+    - name: stablecoin_activity_per_day
+      description: "Daily activity of stablecoins, including total supply, total transactions, and active addresses."
+      config:
+        contract:
+          enforced: true
+      columns:
+        - name: date
+          description: "The date at which the token transfer occurred."
+          data_type: date
+        - name: token_address
+          description: "The address of the token being transferred."
+          data_type: varchar
+        - name: type
+          description: "The type of stablecoin (e.g., USDT, USDC, DAI)."
+          data_type: varchar
+        - name: symbol
+          description: "The symbol of the stablecoin."
+          data_type: varchar
+        - name: total_usd_value_transferred
+          description: "The total value of transactions involving the stablecoin on that day in USD."
+          data_type: float
+
