@@ -1,14 +1,18 @@
 name: dbt CI
 
 on:
-  push:
+  pull_request:
     branches:
-      - '**'
+      - main
 
 jobs:
   dbt-run:
     runs-on: ubuntu-latest
     environment: DBT_ETH
+
+    defaults:
+      run:
+        working-directory: ethereum_onchain_analytics
 
     env:
       DBT_PRIVATE_KEY: ${{ secrets.DBT_PRIVATE_KEY }}
