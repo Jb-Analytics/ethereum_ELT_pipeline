@@ -53,10 +53,10 @@ jobs:
 
       - name: Create state manifest from main 
         run: |
-          mkdir -p state
           git checkout main
           dbt deps
           dbt parse --target prod
+          mkdir -p state
           cp target/manifest.json state/manifest.json
           git checkout -
 
