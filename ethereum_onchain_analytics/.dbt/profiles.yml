@@ -1,13 +1,13 @@
 ethereum_onchain_analytics:
   outputs:
     ci:
-      account: XZEPDMD-BR83796
+      account: "{{ env_var('DBT_SNOWFLAKE_ACCOUNT') }}"
       database: CI
       private_key_path: "{{ env_var('DBT_PRIVATE_KEY_PATH') }}"
-      role: ACCOUNTADMIN
+      role: "{{ env_var('DBT_SNOWFLAKE_ROLE') }}"
       schema: ci_eth
       threads: 4
       type: snowflake
-      user: celiajb
+      user: "{{ env_var('DBT_SNOWFLAKE_USER') }}"
       warehouse: COMPUTE_WH
   target: ci
