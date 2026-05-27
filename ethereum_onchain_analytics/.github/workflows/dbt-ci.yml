@@ -1,9 +1,9 @@
 name: dbt CI
 
 on:
-  pull_request:
+  push:
     branches:
-      - main
+      - '**'
 
 jobs:
   dbt-run:
