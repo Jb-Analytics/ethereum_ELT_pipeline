@@ -1,0 +1,1 @@
+{{ codegen.generate_model_yaml(model_names=['stablecoin_activity_per_day'], upstream_descriptions=True, include_data_types=True) }}

@@ -1,3 +1,4 @@
+config-version: 2
 
 name: 'ethereum_onchain_analytics'
 version: '1.0.0'
@@ -19,18 +20,25 @@ clean-targets:         # directories to be removed by `dbt clean`
 flags:
   fail_fast: true
 
+seeds:
+  +schema: seeds
 
 models:
   ethereum_onchain_analytics:
     staging:
-      +database: eth_bronze
-      +schema: raw
+      +schema: eth_bronze
       +materialized: view
     intermediate:
-      +database: eth_silver      
-      +schema: core
+      +schema: eth_silver
       +materialized: table
     marts:
-      +database: eth_gold
-      +schema: analytics
+      +schema: eth_gold
+      +materialized: table
       +tags: ['analytics']
+
+      analytics:
+        stablecoin_activity_per_day:
+          +post-hook: 
+            - GRANT USAGE ON DATABASE {{ target.database }} TO ROLE DA
+            - GRANT USAGE ON SCHEMA {{ target.database }}.{{ this.schema }} TO ROLE DA
+            - GRANT SELECT ON {{ this }} TO ROLE DA
