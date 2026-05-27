@@ -10,4 +10,14 @@ ethereum_onchain_analytics:
       type: snowflake
       user: "{{ env_var('DBT_SNOWFLAKE_USER') }}"
       warehouse: COMPUTE_WH
+    prod:
+      account: "{{ env_var('DBT_SNOWFLAKE_ACCOUNT') }}"
+      database: PROD
+      private_key_path: "{{ env_var('DBT_PRIVATE_KEY_PATH') }}"
+      role: "{{ env_var('DBT_SNOWFLAKE_ROLE') }}"
+      schema: prod_eth
+      threads: 4
+      type: snowflake
+      user: "{{ env_var('DBT_SNOWFLAKE_USER') }}"
+      warehouse: COMPUTE_WH
   target: ci
