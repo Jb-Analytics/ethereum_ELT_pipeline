@@ -20,6 +20,7 @@ jobs:
       DBT_SNOWFLAKE_ACCOUNT: ${{ secrets.DBT_SNOWFLAKE_ACCOUNT }}
       DBT_SNOWFLAKE_ROLE: ${{ secrets.DBT_SNOWFLAKE_ROLE }}
       DBT_SNOWFLAKE_USER: ${{ secrets.DBT_SNOWFLAKE_USER }}
+      DBT_SCHEMA: pr_${{ github.pull_request.number }}  # Use PR number as schema to avoid conflicts
 
     steps:
       - name: Checkout repo
