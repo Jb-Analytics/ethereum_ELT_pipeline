@@ -1,0 +1,45 @@
+name: Cleanup PR Schemas
+
+on:
+  schedule:
+    - cron: "0 2 * * *"  # daily 02:00 UTC
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    environment: DBT_ETH
+
+    defaults:
+      run:
+        working-directory: ethereum_onchain_analytics
+
+    env:
+      DBT_PRIVATE_KEY: ${{ secrets.DBT_PRIVATE_KEY }}
+      DBT_PRIVATE_KEY_PATH: /home/runner/.dbt/rsa_key.p8
+      DBT_SNOWFLAKE_ACCOUNT: ${{ secrets.DBT_SNOWFLAKE_ACCOUNT }}
+      DBT_SNOWFLAKE_ROLE: ${{ secrets.DBT_SNOWFLAKE_ROLE }}
+      DBT_SNOWFLAKE_USER: ${{ secrets.DBT_SNOWFLAKE_USER }}
+      DBT_SCHEMA: PUBLIC
+    
+    steps:
+        - name: Checkout repo
+          uses: actions/checkout@v3
+
+        - name: Set up Python
+          uses: actions/setup-python@v4
+          with:
+            python-version: "3.12.10"
+
+        - name: Install dbt
+          run: pip install dbt-core==1.9.4 dbt-snowflake==1.9.4
+
+        - name: Set up dbt profile + private key
+          run: |
+            mkdir -p ~/.dbt
+            cp .dbt/profiles.yml ~/.dbt/profiles.yml
+            echo "$DBT_PRIVATE_KEY" > ~/.dbt/rsa_key.p8
+            chmod 600 ~/.dbt/rsa_key.p8
+        - name: Cleanup
+          run: |
+            dbt run-operation pr_schema_cleanup --target ci --args "{'database_to_clean': 'CI','age_in_days': -1}"
