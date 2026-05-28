@@ -16,6 +16,9 @@ models:
         - name: type
           description: "The type of stablecoin (e.g., USDT, USDC, DAI)."
           data_type: varchar
+          data_tests:
+            - accepted_values:
+                values: ['Hybrid', 'Crypto-backed', 'Fiat-backed']
         - name: symbol
           description: "The symbol of the stablecoin."
           data_type: varchar

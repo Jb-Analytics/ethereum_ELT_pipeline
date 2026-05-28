@@ -14,5 +14,7 @@ models:
         description: "The address that received the transaction."
       - name: value
         description: "The amount of Ether transferred in the transaction."
+        data_tests:
+          - assert_value_amount_is_positive
       - name: timestamp
         description: "The time at which the transaction was included in a block."
