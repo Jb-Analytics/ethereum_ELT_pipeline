@@ -31,6 +31,9 @@ models:
         description: "Unique identifier for the transaction associated with the token transfer."
         data_tests:
             - not_null
+            - relationships:
+                to: ref('stg_transactions')
+                field: hash
       - name: date
         description: "The date at which the token transfer occurred."
       - name: token_address

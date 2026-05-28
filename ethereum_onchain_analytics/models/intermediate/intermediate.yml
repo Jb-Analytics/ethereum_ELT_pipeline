@@ -14,5 +14,27 @@ models:
         description: "The address that received the transaction."
       - name: value
         description: "The amount of Ether transferred in the transaction."
+        data_tests:
+          - assert_value_amount_is_positive
       - name: timestamp
         description: "The time at which the transaction was included in a block."
+
+unit_tests:
+  - name: test_is_valid_transaction_category_breakdown
+    model: int_transactions_enriched
+    overrides:
+      macros:
+        # unit test this model in "full refresh" mode
+        is_incremental: false
+    given:
+      - input: ref('stg_transactions')
+        rows:
+          - {receipt_contract_address: 'bla'}
+
+      - input: ref('stg_token_transfers')
+        rows:
+          - {transaction_hash: 'bla'}
+
+    expect:
+      rows:
+        - {transaction_category: 'contract_creation'}
